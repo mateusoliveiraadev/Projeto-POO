@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberGuard - Quiz de Segurança</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 500px;
+            padding: 40px;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 28px;
+        }
+
+        .form-group { margin-bottom: 20px; }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        input:focus { outline: none; border-color: #667eea; }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 16px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        button:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4); }
+
+        .footer-link {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 14px;
+            cursor: pointer;
+            color: #667eea;
+            text-decoration: underline;
+        }
+
+        .status {
+            margin-top: 15px;
+            text-align: center;
+            color: #e74c3c;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+<div class="container" id="app">
+    <h2 id="titulo">CyberGuard Login</h2>
+    <div id="statusMsg" class="status"></div>
+
+    <div id="formNome" class="form-group hidden">
+        <label>Nome:</label>
+        <input type="text" id="inputNome" placeholder="Seu nome completo">
+    </div>
+
+    <div class="form-group">
+        <label>E-mail:</label>
+        <input type="email" id="inputEmail" placeholder="seu.email@exemplo.com">
+    </div>
+
+    <div class="form-group">
+        <label>Senha:</label>
+        <input type="password" id="inputSenha" placeholder="Sua senha">
+    </div>
+
+    <button id="btnAcao">ENTRAR</button>
+
+    <div class="footer-link" id="btnAlternar">
+        Não tem conta? Cadastre-se aqui
+    </div>
+</div>
+
+<script type="module">
+    const api = {
+        cadastrar: async (d) => {
+            const r = await fetch("/usuarios/register", {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(d)
+            });
+            if (!r.ok) throw new Error("Erro ao cadastrar");
+            return r.json();
+        },
+        login: async (d) => {
+            const r = await fetch("/usuarios/login", {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(d)
+            });
+            if (!r.ok) throw new Error("E-mail ou senha incorretos");
+            return r.json();
+        }
+    };
+
+    let modoLogin = true;
+    const app = document.getElementById('app');
+
+    document.getElementById('btnAcao').onclick = async () => {
+        const d = {
+            nome: document.getElementById('inputNome').value,
+            email: document.getElementById('inputEmail').value,
+            senha: document.getElementById('inputSenha').value
+        };
+
+        document.getElementById('statusMsg').innerText = "Processando...";
+
+        try {
+            if (modoLogin) {
+                const u = await api.login(d);
+                alert(`Bem-vindo, ${u.nome}!`);
+                carregarQuiz();
+            } else {
+                await api.cadastrar(d);
+                alert("Conta criada com sucesso!");
+                document.getElementById('btnAlternar').click();
+            }
+        } catch (e) {
+            document.getElementById('statusMsg').innerText = e.message;
+        }
+    };
+
+    document.getElementById('btnAlternar').onclick = () => {
+        modoLogin = !modoLogin;
+        const formNome = document.getElementById('formNome');
+        const titulo = document.getElementById('titulo');
+        const btnAcao = document.getElementById('btnAcao');
+        const statusMsg = document.getElementById('statusMsg');
+
+        statusMsg.innerText = "";
+
+        if (modoLogin) {
+            titulo.innerText = "CyberGuard Login";
+            formNome.classList.add('hidden');
+            btnAcao.innerText = "ENTRAR";
+            document.getElementById('btnAlternar').innerText = "Não tem conta? Cadastre-se aqui";
+        } else {
+            titulo.innerText = "Novo Cadastro";
+            formNome.classList.remove('hidden');
+            btnAcao.innerText = "CRIAR CONTA";
+            document.getElementById('btnAlternar').innerText = "Já tem conta? Voltar ao Login";
+        }
+    };
+
+    async function carregarQuiz() {
+        alert("Quiz será implementado nos próximos passos!");
+    }
+</script>
+</body>
+</html>
