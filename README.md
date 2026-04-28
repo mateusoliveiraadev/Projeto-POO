@@ -57,5 +57,30 @@ Foi gravado um vídeo demonstrando o funcionamento do protótipo & explicando o 
 
 ▶️ Assistir no Youtube:  https://youtu.be/iAzAiAcc2RM
 
-
 ---
+
+# Entrega 03
+
+Nesta entrega foram desenvolvidas novas funcionalidades do sistema CyberGuard, incluindo: a implementação de mais duas histórias de usuário, atualização do ambiente de versionamento, adicionamos um novo screencast do sistema em funcionamento e outro screencast da execução dos testes, issue / bug tracker atualizado no GitHub com registros no README e implementação de testes automatizados
+
+- implementação de +2 histórias do usuário 
+- screencast do sistema funcionando
+- screencast da execução dos testes
+- testes automatizados
+- issue / bug tracker atualizado
+
+📄 Documento com as histórias:  
+https://www.notion.so/User-Stories-POO-CyberGuard-325fb994f323806db057d7846308a6c1?source=copy_link
+
+## 1. Screencast do Protótipo
+
+Foi gravado um vídeo demonstrando o funcionamento do protótipo 
+
+▶️ Assistir no Youtube: 
+
+## 2. Screencast da execução de testes
+
+Foi gravado um vídeo executando o alguns testes dentro do protótipo
+
+▶️ Assistir no Youtube:  
+
