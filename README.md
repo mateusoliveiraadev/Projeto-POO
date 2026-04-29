@@ -86,7 +86,7 @@ Foi gravado um vídeo demonstrando o funcionamento do protótipo
 
 ## 2. Screencast da execução de testes
 
-Foi gravado um vídeo executando o alguns testes dentro do protótipo
+Foi gravado um vídeo executando alguns testes dentro do protótipo 
 
 ▶️ Assistir no Youtube:  
 
