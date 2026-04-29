@@ -10,9 +10,9 @@ Projeto desenvolvido na residência tecnológica do Porto Digital em parceria co
 
 Nesta entrega foram desenvolvidos os primeiros artefatos do projeto CyberGuard, incluindo:
 
-- definição das histórias de usuário utilizando BDD
-- protótipo de baixa fidelidade (Lo-Fi)
-- apresentação do protótipo em vídeo
+- Definição das histórias de usuário utilizando BDD
+- Protótipo de baixa fidelidade (Lo-Fi)
+- Apresentação do protótipo em vídeo
 
 ---
 
@@ -45,8 +45,8 @@ Foi gravado um vídeo demonstrando o funcionamento do protótipo Lo-Fi e explica
 
 Nesta entrega foram desenvolvidos as funcinalidades e os screencasts de Login do usuário e acesso a comunidade do projeto CyberGuard, incluindo:
 
-- definição de +2 histórias de usuário utilizando BDD
-- screencasts contendo o tutorial das 2 histótias adicionadas   
+- Definição de +2 histórias de usuário utilizando BDD
+- Screencasts contendo o tutorial das 2 histótias adicionadas   
 
 📄 Documento com as histórias:  
 https://www.notion.so/User-Stories-POO-CyberGuard-325fb994f323806db057d7846308a6c1?source=copy_link
@@ -63,11 +63,11 @@ Foi gravado um vídeo demonstrando o funcionamento do protótipo & explicando o 
 
 Nesta entrega foram desenvolvidas novas funcionalidades do sistema CyberGuard, incluindo: a implementação de mais duas histórias de usuário, atualização do ambiente de versionamento, adicionamos um novo screencast do sistema em funcionamento e outro screencast da execução dos testes, issue / bug tracker atualizado no GitHub com registros no README e implementação de testes automatizados
 
-- implementação de +2 histórias do usuário 
-- screencast do sistema funcionando
-- screencast da execução dos testes
-- testes automatizados
-- issue / bug tracker atualizado
+- Implementação de +2 histórias do usuário 
+- Screencast do sistema funcionando
+- Screencast da execução dos testes
+- Testes automatizados
+- Issue / bug tracker atualizado
 
 📄 Documento com as histórias:  
 https://www.notion.so/User-Stories-POO-CyberGuard-325fb994f323806db057d7846308a6c1?source=copy_link
