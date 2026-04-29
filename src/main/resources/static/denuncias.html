@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberGuard - Denúncias</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
+        .container { background: white; border-radius: 12px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2); max-width: 800px; margin: 0 auto; padding: 40px; }
+        h2 { color: #333; margin-bottom: 30px; text-align: center; font-size: 28px; }
+        .tabs { display: flex; gap: 10px; margin-bottom: 30px; border-bottom: 2px solid #e0e0e0; }
+        .tab-btn { padding: 12px 20px; background: none; border: none; color: #555; font-weight: 600; cursor: pointer; border-bottom: 3px solid transparent; transition: all 0.3s; }
+        .tab-btn.active { color: #667eea; border-bottom-color: #667eea; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; color: #555; font-weight: 600; font-size: 14px; }
+        input, textarea { width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 6px; font-size: 14px; font-family: inherit; transition: border-color 0.3s; }
+        input:focus, textarea:focus { outline: none; border-color: #667eea; }
+        textarea { resize: vertical; min-height: 120px; }
+        button { width: 100%; padding: 12px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 16px; transition: transform 0.2s, box-shadow 0.2s; }
+        button:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4); }
+        .status { margin-top: 15px; text-align: center; color: #e74c3c; font-weight: 600; font-size: 14px; }
+        .status.success { color: #2ecc71; }
+        .denuncia-item { background: #f9f9f9; padding: 15px; border-radius: 6px; margin-bottom: 15px; border-left: 4px solid #667eea; }
+        .denuncia-titulo { font-weight: 600; color: #333; margin-bottom: 8px; }
+        .denuncia-descricao { color: #555; font-size: 14px; margin-bottom: 10px; line-height: 1.6; }
+        .denuncia-data { color: #999; font-size: 12px; }
+        .empty-message { text-align: center; color: #999; padding: 40px 20px; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Central de Denúncias</h2>
+    
+    <div class="tabs">
+        <button class="tab-btn active" data-tab="enviar">Enviar Denúncia</button>
+        <button class="tab-btn" data-tab="visualizar">Ver Denúncias</button>
+    </div>
+
+    <!-- Aba de Envio -->
+    <div id="enviar" class="tab-content active">
+        <form id="formDenuncia">
+            <div class="form-group">
+                <label>Título da Denúncia:</label>
+                <input type="text" id="titulo" placeholder="Ex: Golpe de phishing no WhatsApp" required>
+            </div>
+            <div class="form-group">
+                <label>Descrição:</label>
+                <textarea id="descricao" placeholder="Descreva detalhadamente o golpe ou ameaça que você encontrou..." required></textarea>
+            </div>
+            <button type="submit">Enviar Denúncia</button>
+            <div id="statusEnvio" class="status"></div>
+        </form>
+    </div>
+
+    <!-- Aba de Visualização -->
+    <div id="visualizar" class="tab-content">
+        <div id="listaDenuncias"></div>
+    </div>
+</div>
+
+<script>
+    // Alternância de abas
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById(btn.dataset.tab).classList.add('active');
+            if (btn.dataset.tab === 'visualizar') carregarDenuncias();
+        });
+    });
+
+    // Enviar denúncia
+    document.getElementById('formDenuncia').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const titulo = document.getElementById('titulo').value;
+        const descricao = document.getElementById('descricao').value;
+        const statusDiv = document.getElementById('statusEnvio');
+
+        try {
+            const response = await fetch('/denuncias', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ titulo, descricao })
+            });
+
+            if (response.ok) {
+                statusDiv.textContent = '✅ Denúncia enviada com sucesso!';
+                statusDiv.classList.add('success');
+                document.getElementById('formDenuncia').reset();
+                setTimeout(() => { statusDiv.textContent = ''; statusDiv.classList.remove('success'); }, 3000);
+            } else {
+                statusDiv.textContent = '❌ Erro ao enviar denúncia.';
+            }
+        } catch (error) {
+            statusDiv.textContent = '❌ Erro na conexão.';
+        }
+    });
+
+    // Carregar denúncias
+    async function carregarDenuncias() {
+        const listDiv = document.getElementById('listaDenuncias');
+        try {
+            const response = await fetch('/denuncias');
+            const denuncias = await response.json();
+
+            if (denuncias.length === 0) {
+                listDiv.innerHTML = '<div class="empty-message">Nenhuma denúncia registrada ainda.</div>';
+            } else {
+                listDiv.innerHTML = denuncias.map(d => `
+                    <div class="denuncia-item">
+                        <div class="denuncia-titulo">${d.titulo}</div>
+                        <div class="denuncia-descricao">${d.descricao}</div>
+                        <div class="denuncia-data">Enviada em: ${new Date(d.dataCriacao).toLocaleString('pt-BR')}</div>
+                    </div>
+                `).join('');
+            }
+        } catch (error) {
+            listDiv.innerHTML = '<div class="empty-message">Erro ao carregar denúncias.</div>';
+        }
+    }
+</script>
+</body>
+</html>
