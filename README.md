@@ -59,19 +59,22 @@ Foi gravado um vídeo demonstrando o funcionamento do protótipo & explicando o 
 
 ---
 
-# Entrega 03
+## Entrega 03
 
-Nesta entrega foram desenvolvidas novas funcionalidades do sistema CyberGuard, incluindo: a implementação de mais duas histórias de usuário, atualização do ambiente de versionamento, adicionamos um novo screencast do sistema em funcionamento e outro screencast da execução dos testes, issue / bug tracker atualizado no GitHub com registros no README e implementação de testes automatizados
+Nesta entrega foram desenvolvidas novas funcionalidades do sistema CyberGuard, incluindo: a implementação de mais três histórias de usuário, atualização do ambiente de versionamento, adicionamos um novo screencast do sistema em funcionamento e outro screencast da execução dos testes, issue / bug tracker atualizado no GitHub com registros no README e implementação de testes automatizados.
 
-- Implementação de +2 histórias do usuário 
-- Screencast do sistema funcionando
-- Screencast da execução dos testes
-- Testes automatizados
-- Issue / bug tracker atualizado
+### Itens Entregues:
+*   **Implementação de +3 histórias do usuário**: 
+    1. **Quiz Educativo Interativo**: Sistema com 10 perguntas, feedback visual imediato (verde/vermelho) e explicações técnicas para cada resposta.
+    2. **Registro de Denúncias**: Interface para que o usuário possa relatar crimes cibernéticos com título e descrição detalhada.
+    3. **Visualização de Denúncias**: Central onde o usuário pode consultar todos os relatos registrados no sistema, com data e hora.
+*   **Screencast do sistema funcionando**: Demonstração das novas funcionalidades e do fluxo de navegação entre Quiz e Denúncias.
+*   **Screencast da execução dos testes**: Vídeo mostrando a validação das novas histórias de usuário e testes de navegação.
+*   **Testes automatizados**: Implementação de scripts de teste para validar a acessibilidade das páginas e endpoints da API.
+*   **Issue / bug tracker atualizado**: Registro e acompanhamento de melhorias diretamente no GitHub.
 
-📄 Documento com as histórias:  
-https://www.notion.so/User-Stories-POO-CyberGuard-325fb994f323806db057d7846308a6c1?source=copy_link
-
+📄 **Documento com as histórias**:
+[https://www.notion.so/User-Stories-POO-CyberGuard-325fb994f323806db057d7846308a6c1?source=copy_link](https://www.notion.so/User-Stories-POO-CyberGuard-325fb994f323806db057d7846308a6c1?source=copy_link )
 
 🦠 Issue / Bug tracker: 
 
