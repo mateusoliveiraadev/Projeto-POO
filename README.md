@@ -73,7 +73,7 @@ Nesta entrega foram desenvolvidas novas funcionalidades do sistema CyberGuard, i
 https://www.notion.so/User-Stories-POO-CyberGuard-325fb994f323806db057d7846308a6c1?source=copy_link
 
 
-🪳 Issue / Bug tracker: <img width="1530" height="325" alt="WhatsApp Image 2026-04-27 at 9 03 34 PM" src="https://github.com/user-attachments/assets/8d8b4a64-34d1-4dd2-b6f3-7d8fd0f786cc" />
+🦠 Issue / Bug tracker: <img width="1530" height="325" alt="WhatsApp Image 2026-04-27 at 9 03 34 PM" src="https://github.com/user-attachments/assets/8d8b4a64-34d1-4dd2-b6f3-7d8fd0f786cc" />
 
 
 ## 1. Screencast do Protótipo
