@@ -65,9 +65,10 @@ Nesta entrega foram desenvolvidas novas funcionalidades do sistema CyberGuard, i
 
 ### Itens Entregues:
 *   **Implementação de +3 histórias do usuário**: 
-    1. **Quiz Educativo Interativo**: Sistema com 10 perguntas, feedback visual imediato (verde/vermelho) e explicações técnicas para cada resposta.
-    2. **Registro de Denúncias**: Interface para que o usuário possa relatar crimes cibernéticos com título e descrição detalhada.
-    3. **Visualização de Denúncias**: Central onde o usuário pode consultar todos os relatos registrados no sistema, com data e hora.
+    - **Quiz Educativo Interativo**: Sistema com 10 perguntas, feedback visual imediato (verde/vermelho) e explicações técnicas para cada resposta.
+    - **Registro de Denúncias**: Interface para que o usuário possa relatar crimes cibernéticos com título e descrição detalhada.
+    - **Visualização de Denúncias**: Central onde o usuário pode consultar todos os relatos registrados no sistema, com data e hora.
+       
 *   **Screencast do sistema funcionando**: Demonstração das novas funcionalidades e do fluxo de navegação entre Quiz e Denúncias.
 *   **Screencast da execução dos testes**: Vídeo mostrando a validação das novas histórias de usuário e testes de navegação.
 *   **Testes automatizados**: Implementação de scripts de teste para validar a acessibilidade das páginas e endpoints da API.
