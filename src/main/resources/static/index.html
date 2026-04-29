@@ -7,7 +7,7 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px; }
-        .container { background: white; border-radius: 12px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2); width: 100%; max-width: 500px; padding: 40px; animation: slideIn 0.3s ease-out; }
+        .container { background: white; border-radius: 12px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2); width: 100%; max-width: 500px; padding: 40px; animation: slideIn 0.3s ease-out; position: relative; }
         @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         h2 { color: #333; margin-bottom: 30px; text-align: center; font-size: 28px; }
         .form-group { margin-bottom: 20px; }
@@ -39,6 +39,8 @@
         .results-details p { color: #555; margin-bottom: 10px; font-size: 14px; }
         .results-details strong { color: #667eea; }
         .hidden { display: none !important; }
+        .btn-voltar-topo { position: absolute; top: 15px; left: 15px; background: none; border: none; color: #667eea; font-weight: 600; cursor: pointer; width: auto; padding: 5px; font-size: 14px; }
+        .btn-voltar-topo:hover { transform: none; box-shadow: none; text-decoration: underline; }
     </style>
 </head>
 <body>
@@ -61,11 +63,24 @@
     let modoLogin = true;
     const app = document.getElementById('app');
 
+    // VERIFICAÇÃO DE LOGIN AO CARREGAR A PÁGINA
+    window.onload = () => {
+        const usuarioLogado = localStorage.getItem('usuarioNome');
+        if (usuarioLogado) {
+            mostrarMenu(usuarioLogado);
+        }
+    };
+
     document.getElementById('btnAcao').onclick = async () => {
         const d = { nome: document.getElementById('inputNome').value, email: document.getElementById('inputEmail').value, senha: document.getElementById('inputSenha').value };
         document.getElementById('statusMsg').innerText = "Processando...";
         try {
-            if (modoLogin) { const u = await api.login(d); alert(`Bem-vindo, ${u.nome}!`); carregarQuiz(); }
+            if (modoLogin) { 
+                const u = await api.login(d); 
+                localStorage.setItem('usuarioNome', u.nome); // Salva o nome
+                alert(`Bem-vindo, ${u.nome}!`); 
+                mostrarMenu(u.nome); 
+            }
             else { await api.cadastrar(d); alert("Conta criada!"); document.getElementById('btnAlternar').click(); }
         } catch (e) { document.getElementById('statusMsg').innerText = e.message || "Erro"; }
     };
@@ -84,13 +99,34 @@
         const r = await fetch('/quiz');
         perguntas = await r.json();
         respostas = new Array(perguntas.length).fill(null);
+        index = 0;
         mostrarPergunta();
+    }
+
+    function mostrarMenu(nome) {
+        const saudacao = nome || localStorage.getItem('usuarioNome') || "Usuário";
+        app.innerHTML = `
+            <div style="text-align: center;">
+                <h2 style="margin-bottom: 10px; color: #333;">Olá, ${saudacao}!</h2>
+                <p style="margin-bottom: 30px; color: #666;">O que deseja fazer hoje?</p>
+                <div style="display: flex; flex-direction: column; gap: 15px;">
+                    <button onclick="carregarQuiz()" style="padding: 15px; font-size: 16px;">📚 Fazer Quiz de Segurança</button>
+                    <button onclick="window.location.href='denuncias.html'" style="padding: 15px; font-size: 16px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">🚨 Central de Denúncias</button>
+                    <button onclick="logout()" style="padding: 15px; font-size: 16px; background: #e74c3c;">🚪 Sair</button>
+                </div>
+            </div>`;
+    }
+
+    function logout() {
+        localStorage.removeItem('usuarioNome'); // Limpa o login
+        location.reload();
     }
 
     function mostrarPergunta() {
         const p = perguntas[index];
         const progresso = ((index + 1) / perguntas.length) * 100;
         app.innerHTML = `
+            <button class="btn-voltar-topo" onclick="mostrarMenu()">← Voltar ao Menu</button>
             <div class="progress-bar"><div class="progress-fill" style="width: ${progresso}%"></div></div>
             <h2>Questão ${index + 1} de ${perguntas.length}</h2>
             <div class="quiz-question">
@@ -128,9 +164,13 @@
                 <div class="results-details">
                     <p><strong>Desempenho:</strong> ${percentual >= 70 ? 'Excelente! Você domina o assunto. 🌟' : 'Continue estudando para se proteger melhor! 📚'}</p>
                 </div>
-                <button onclick="location.reload()">Fazer Novamente</button>
+                <button onclick="mostrarMenu()">Voltar ao Menu Principal</button>
             </div>`;
     }
+
+    window.carregarQuiz = carregarQuiz;
+    window.mostrarMenu = mostrarMenu;
+    window.logout = logout;
 </script>
 </body>
 </html>
