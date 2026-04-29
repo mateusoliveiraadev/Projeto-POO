@@ -71,7 +71,6 @@ Nesta entrega foram desenvolvidas novas funcionalidades do sistema CyberGuard, i
        
 *   **Screencast do sistema funcionando**: Demonstração das novas funcionalidades e do fluxo de navegação entre Quiz e Denúncias.
 *   **Screencast da execução dos testes**: Vídeo mostrando a validação das novas histórias de usuário e testes de navegação.
-*   **Testes automatizados**: Implementação de scripts de teste para validar a acessibilidade das páginas e endpoints da API.
 *   **Issue / bug tracker atualizado**: Registro e acompanhamento de melhorias diretamente no GitHub.
 
 📄 **Documento com as histórias**:
